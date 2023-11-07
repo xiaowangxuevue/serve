@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="file" />
+    <button>点击上传</button>
+</body>
+<script>
+    document.querySelector('button').onclick = function () {
+        console.log(123);
+        // 这里会获取一个 files 数组对象 因为是单文件上传取第一个即可
+        let file = document.querySelector('input').files[0];
+        let xhr = new XMLHttpRequest();
+        xhr.open('post', '/upload', true);
+        xhr.onload = function () {
+            let res = JSON.parse(xhr.responseText);
+            console.log(res);
+        }
+
+        let form = new FormData();
+        form.append('image', file); // 对应 key value
+        xhr.send(form);
+    }
+
+</script>
+
+</html>
